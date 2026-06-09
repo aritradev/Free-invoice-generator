@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Invoice & Receipt Generator | Privacy First",
+  title: "Invoice & Receipt Generator",
   description: "A completely free, privacy-first, browser-based tool to generate professional invoices and receipts.",
 };
 

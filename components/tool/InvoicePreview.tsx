@@ -234,7 +234,7 @@ export default function InvoicePreview({ state, calculations, formattedDocumentI
           <div className="flex justify-between items-end text-xs text-slate-500 pt-6 mt-auto border-t border-slate-100 a4-print-footer">
             <div className="text-left">
               <p>Generated on: {new Date().toLocaleString()}</p>
-              <p className="mt-1">freereceipt.net</p>
+              <p className="mt-1">freereceipt.dev</p>
             </div>
             <div className="text-right">
               {state.businessInfo.companyName && <p className="font-bold text-slate-600">{state.businessInfo.companyName}</p>}
