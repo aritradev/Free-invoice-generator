@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] bg-slate-50 px-4">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100dvh-4rem)] bg-slate-50 px-4">
       <div className="bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center max-w-md">
         <h2 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h2>
         <p className="text-slate-600 mb-8">

@@ -17,10 +17,10 @@
 }
 
 @media print {
-  /* This specifically targets and hides the browser's default header/footer URL strings */
-  @page {
-    size: auto;
-    margin: 0mm !important; 
+  html, body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
   }
   
   body {
@@ -29,18 +29,17 @@
     margin: 0 !important;
     padding: 0 !important;
     background-color: white !important;
+    visibility: hidden;
   }
 
   /* Force the A4 document to fill the page and establish its own internal margins */
   .a4-print-container {
     width: 210mm !important;
-    min-height: 297mm !important;
+    min-height: 290mm !important; /* Safety margin to prevent empty page generation */
     padding: 20mm !important; /* Our custom safe margin */
     margin: 0 auto !important;
     box-shadow: none !important;
     border: none !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
     display: flex !important;
     flex-direction: column !important;
   }

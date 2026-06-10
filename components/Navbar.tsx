@@ -121,7 +121,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-100 shadow-lg absolute w-full left-0 top-16 flex flex-col items-center py-6 gap-4 z-40 overflow-y-auto max-h-[calc(100vh-4rem)]">
+        <div className="md:hidden bg-white border-b border-slate-100 shadow-lg absolute w-full left-0 top-16 flex flex-col items-center py-6 gap-4 z-40 overflow-y-auto max-h-[calc(100dvh-4rem)]">
           <Link href="/" onClick={toggleMenu} className="text-base font-semibold text-slate-700 hover:text-blue-600 transition-colors">
             Home
           </Link>

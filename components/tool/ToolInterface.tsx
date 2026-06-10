@@ -30,7 +30,7 @@ export default function ToolInterface() {
 
   if (!isMounted) {
     return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-slate-50">
+      <div className="flex items-center justify-center min-h-[calc(100dvh-4rem)] bg-slate-50">
         <div className="animate-pulse flex flex-col items-center gap-4">
           <div className="h-8 w-48 bg-slate-200 rounded"></div>
           <div className="h-4 w-32 bg-slate-200 rounded"></div>
@@ -50,9 +50,9 @@ export default function ToolInterface() {
   };
 
   return (
-    <div className="flex-1 flex flex-col xl:flex-row bg-slate-50 h-[calc(100vh-4rem)] print:h-auto overflow-hidden print:overflow-visible">
+    <div className="flex-1 flex flex-col xl:flex-row bg-slate-50 h-[calc(100dvh-4rem)] print:h-auto overflow-hidden print:overflow-visible">
       {/* Mobile/Tablet Tabs Toggle (Visible only below xl breakpoint) */}
-      <div className="flex-none flex xl:hidden border-b border-slate-200 bg-white">
+      <div className="flex-none flex xl:hidden border-b border-slate-200 bg-white print:hidden">
         <button
           onClick={() => setActiveTab('edit')}
           className={`flex-1 py-3 text-center text-sm font-semibold border-b-2 transition-colors ${
@@ -80,12 +80,20 @@ export default function ToolInterface() {
         {/* Tool Toolbar */}
         <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm">
           <h1 className="text-xl font-bold text-slate-900">Document Editor</h1>
-          <button
-            onClick={newDocument}
-            className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors"
-          >
-            <Plus className="h-4 w-4" /> New Document
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={newDocument}
+              className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors"
+            >
+              <Plus className="h-4 w-4" /> <span className="hidden sm:inline">New Document</span>
+            </button>
+            <button
+              onClick={handlePrint}
+              className="xl:hidden flex items-center gap-2 px-3 py-1.5 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors shadow-sm"
+            >
+              <Download className="h-4 w-4" /> Download PDF
+            </button>
+          </div>
         </div>
 
         {/* Form Container */}
@@ -104,7 +112,7 @@ export default function ToolInterface() {
       </div>
 
       {/* RIGHT: Preview Area */}
-      <div className={`w-full xl:w-1/2 flex-col bg-slate-100 print:w-full print:bg-white h-full print:h-auto ${activeTab === 'preview' ? 'flex' : 'hidden xl:flex'}`}>
+      <div className={`w-full xl:w-1/2 flex-col bg-slate-100 print:w-full print:bg-white h-full print:h-auto print:flex ${activeTab === 'preview' ? 'flex' : 'hidden xl:flex'}`}>
         {/* Preview Toolbar */}
         <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm print:hidden">
           <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Live Preview</h2>
@@ -117,7 +125,7 @@ export default function ToolInterface() {
         </div>
 
         {/* Preview Container */}
-        <div className="flex-1 overflow-y-auto p-6 lg:p-8 flex justify-center print:p-0 print:block pb-32 print:pb-0">
+        <div className="flex-1 overflow-y-auto print:overflow-visible p-3 sm:p-6 lg:p-8 flex justify-center print:p-0 print:block pb-32 print:pb-0">
           <div className="w-full max-w-[816px] print:max-w-none print:w-full">
             <InvoicePreview
               state={state}

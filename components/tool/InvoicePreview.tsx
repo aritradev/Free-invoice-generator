@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { InvoiceState } from '@/types/invoice';
 
 interface InvoicePreviewProps {
@@ -13,15 +14,36 @@ interface InvoicePreviewProps {
 }
 
 export default function InvoicePreview({ state, calculations, formattedDocumentId }: InvoicePreviewProps) {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const safeNumber = (val: string | number) => {
     const parsed = typeof val === 'string' ? parseFloat(val) : val;
     return isNaN(parsed) ? 0 : parsed;
   };
 
+  const getLocaleForCurrency = (currencyCode: string) => {
+    switch (currencyCode) {
+      case 'BDT': return 'en-BD';
+      case 'INR': return 'en-IN';
+      case 'GBP': return 'en-GB';
+      case 'EUR': return 'en-IE';
+      case 'AUD': return 'en-AU';
+      case 'CAD': return 'en-CA';
+      default: return 'en-US';
+    }
+  };
+
   const formatCurrency = (amount: number | string) => {
-    return new Intl.NumberFormat('en-US', {
+    const locale = getLocaleForCurrency(state.currency);
+    return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: state.currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(safeNumber(amount));
   };
 
@@ -32,25 +54,42 @@ export default function InvoicePreview({ state, calculations, formattedDocumentI
       <style dangerouslySetInnerHTML={{__html: `
         @media print {
           @page { 
-            /* Provide explicit Width and Height to force Chrome to recognize the custom size */
             size: ${state.printFormat === 'A4' ? 'A4 portrait' : '80mm 297mm'}; 
-            margin: 0; /* Ensures browser headers/footers are stripped */
+            margin: 0; 
           }
-          html, body {
-            /* Force the browser rendering engine to shrink to the receipt width */
-            width: ${state.printFormat === 'A4' ? 'auto' : '80mm'} !important;
-            max-width: ${state.printFormat === 'A4' ? 'none' : '80mm'} !important;
+          body {
+            visibility: hidden;
             background-color: white !important;
             margin: 0 !important;
             padding: 0 !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+          }
+          header, footer, nav, aside, [class*="print:hidden"], [class*="Navbar"], [class*="Footer"] {
+            display: none !important;
+          }
+          .invoice-preview-print-target {
+            visibility: visible !important;
+            position: relative !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: ${state.printFormat === 'A4' ? '100%' : '80mm'} !important;
+            max-width: ${state.printFormat === 'A4' ? 'none' : '80mm'} !important;
+            margin: 0 !important;
+            padding: ${state.printFormat === 'A4' ? '15mm' : '4mm'} !important;
+            box-shadow: none !important;
+            border: none !important;
+          }
+          .invoice-preview-print-target * {
+            visibility: visible !important;
+          }
+          tr {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
         }
       `}} />
 
       {isPOS ? (
-        <div className="w-full bg-white print:bg-white print:px-[5mm] print:py-[8mm] p-4 shadow-sm print:shadow-none min-h-[400px] print:min-h-0 text-slate-900 border border-slate-200 print:border-none mx-auto print:mx-0 max-w-[80mm] print:w-[80mm] print:max-w-[80mm] overflow-hidden break-words font-sans text-xs">
+        <div className="w-full bg-white print:bg-white print:px-[5mm] print:py-[8mm] p-4 shadow-sm print:shadow-none min-h-[400px] print:min-h-0 text-slate-900 border border-slate-200 print:border-none mx-auto print:mx-0 max-w-[80mm] print:w-[80mm] print:max-w-[80mm] overflow-hidden break-words font-sans text-xs invoice-preview-print-target">
           
           {/* POS Header */}
           <div className="flex flex-col items-center justify-center text-center mb-6">
@@ -126,7 +165,7 @@ export default function InvoicePreview({ state, calculations, formattedDocumentI
 
         </div>
       ) : (
-        <div className="w-full bg-white p-8 shadow-sm min-h-[1056px] text-slate-900 border border-slate-200 mx-auto max-w-[816px] font-sans a4-print-container relative flex flex-col">
+        <div className="w-full bg-white p-4 sm:p-8 shadow-sm min-h-[1056px] text-slate-900 border border-slate-200 mx-auto max-w-[816px] font-sans a4-print-container relative flex flex-col invoice-preview-print-target">
           
           {/* Header */}
           <div className="flex justify-between items-start mb-12">
@@ -177,32 +216,32 @@ export default function InvoicePreview({ state, calculations, formattedDocumentI
           </div>
 
           {/* Items Table */}
-          <table className="w-full mb-12 text-left border-collapse">
-            <thead>
-              <tr className="border-b-2 border-slate-800 text-sm font-bold text-slate-900 uppercase">
-                <th className="py-3 px-2">Description</th>
-                <th className="py-3 px-2 text-right">Qty</th>
-                <th className="py-3 px-2 text-right">Rate</th>
-                <th className="py-3 px-2 text-right">Amount</th>
-              </tr>
-            </thead>
-            <tbody className="text-sm text-slate-700">
-              {state.items.map((item, index) => (
-                <tr key={item.id} className="border-b border-slate-100">
-                  <td className="py-4 px-2 whitespace-pre-wrap">{item.description || `Item ${index + 1}`}</td>
-                  <td className="py-4 px-2 text-right">{item.quantity}</td>
-                  <td className="py-4 px-2 text-right">{formatCurrency(item.rate)}</td>
-                  <td className="py-4 px-2 text-right font-medium text-slate-900">{formatCurrency(safeNumber(item.quantity) * safeNumber(item.rate))}</td>
+          <div className="w-full overflow-x-auto print:overflow-visible no-scrollbar mb-12">
+            <table className="w-full text-left border-collapse min-w-[500px] sm:min-w-0">
+              <thead>
+                <tr className="border-b-2 border-slate-800 text-sm font-bold text-slate-900 uppercase">
+                  <th className="py-3 px-2">Description</th>
+                  <th className="py-3 px-2 text-right">Qty</th>
+                  <th className="py-3 px-2 text-right">Rate</th>
+                  <th className="py-3 px-2 text-right">Amount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="text-sm text-slate-700">
+                {state.items.map((item, index) => (
+                  <tr key={item.id} className="border-b border-slate-100">
+                    <td className="py-4 px-2 whitespace-pre-wrap">{item.description || `Item ${index + 1}`}</td>
+                    <td className="py-4 px-2 text-right">{item.quantity}</td>
+                    <td className="py-4 px-2 text-right">{formatCurrency(item.rate)}</td>
+                    <td className="py-4 px-2 text-right font-medium text-slate-900">{formatCurrency(safeNumber(item.quantity) * safeNumber(item.rate))}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {/* Totals */}
           <div className="flex justify-between items-start">
-            <div className="w-full max-w-[50%] text-sm text-slate-600 whitespace-pre-wrap pt-2">
-              {state.note && <><span className="font-bold text-slate-400 uppercase tracking-wider text-xs block mb-1">Note</span>{state.note}</>}
-            </div>
+            <div className="w-full max-w-[50%] text-sm text-slate-600 whitespace-pre-wrap pt-2" />
             <div className="w-full max-w-sm text-sm text-slate-700">
               <div className="flex justify-between py-2 px-2">
                 <span>Subtotal</span>
@@ -233,7 +272,7 @@ export default function InvoicePreview({ state, calculations, formattedDocumentI
           {/* Custom Print Footer */}
           <div className="flex justify-between items-end text-xs text-slate-500 pt-6 mt-auto border-t border-slate-100 a4-print-footer">
             <div className="text-left">
-              <p>Generated on: {new Date().toLocaleString()}</p>
+              <p suppressHydrationWarning>Generated on: {mounted ? new Date().toLocaleString() : ''}</p>
               <p className="mt-1">freereceipt.dev</p>
             </div>
             <div className="text-right">
