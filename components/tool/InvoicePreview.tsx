@@ -144,7 +144,7 @@ export default function InvoicePreview({ state, calculations, formattedDocumentI
                 <p className="text-sm text-slate-500 mt-1">Tax ID: {state.businessInfo.taxId}</p>
               )}
             </div>
-
+            
             <div className="text-right">
               <h2 className="text-4xl font-black text-slate-200 uppercase tracking-wider mb-4">
                 {state.documentType}

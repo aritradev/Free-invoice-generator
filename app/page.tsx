@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import Hero from '@/components/Hero';
+import FAQ from '@/components/FAQ';
 import { 
   Globe, 
   Users, 
@@ -13,9 +14,23 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Free Invoice & POS Receipt Generator | FreeReceipt.net',
-  description: 'Create professional A4 PDF invoices and 80mm thermal POS receipts instantly. No login required, 100% free, and your data stays safe in your browser\'s local storage.',
-  keywords: ['Free Invoice & POS Receipt Generator', 'free invoice maker', '80mm receipt generator', 'thermal printer receipt template', 'pos invoice tool', 'no login receipt maker'],
+  title: 'Free POS & Thermal Receipt Maker & Invoice Generator | No Login',
+  description: 'Free receipt maker and invoice generator. Create 80mm thermal POS receipts instantly. No watermarks, no login, and data stays in your browser.',
+  alternates: {
+    canonical: 'https://freereceipt.dev',
+  },
+  openGraph: {
+    title: 'Free POS & Thermal Receipt Maker | No Login',
+    description: 'Free receipt maker and invoice generator. Create 80mm thermal POS receipts instantly. No watermarks, no login.',
+    url: 'https://freereceipt.dev',
+    siteName: 'FreeReceipt',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free POS & Thermal Receipt Maker | No Login',
+    description: 'Free receipt maker and invoice generator. Create 80mm thermal POS receipts instantly.',
+  }
 };
 
 export default function Home() {
@@ -28,7 +43,7 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": "Free Invoice & POS Receipt Generator",
+            "name": "FreeReceipt - POS & Thermal Receipt Maker",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "All",
             "offers": {
@@ -37,7 +52,7 @@ export default function Home() {
               "priceCurrency": "USD"
             },
             "isAccessibleForFree": true,
-            "description": "A privacy-focused web utility to generate standard A4 invoices and 80mm POS receipts directly from the browser without an account.",
+            "description": "A truly free receipt maker with no watermark. Instantly generate professional A4 invoices and 80mm thermal receipts with a real-time live preview. No login required.",
             "keywords": "Free Invoice & POS Receipt Generator, free invoice maker, 80mm receipt generator, thermal printer receipt template, pos invoice tool, no login receipt maker"
           })
         }}
@@ -271,66 +286,7 @@ export default function Home() {
       </div>
 
       {/* FAQ Section */}
-      <div className="mt-32 max-w-3xl px-6 lg:px-8 w-full mx-auto">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900 text-center mb-12">Frequently Asked Questions</h2>
-        <div className="space-y-4">
-          <details className="group bg-white rounded-lg shadow-sm border border-slate-200 open:shadow-md transition-all">
-            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900 p-6">
-              Do I need to create an account?
-              <span className="ml-4 flex-shrink-0 text-indigo-600 group-open:-rotate-180 transition-transform duration-200">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
-            </summary>
-            <div className="px-6 pb-6 text-slate-600">
-              No. Our tool is 100% free and requires no login or email to generate invoices.
-            </div>
-          </details>
-
-          <details className="group bg-white rounded-lg shadow-sm border border-slate-200 open:shadow-md transition-all">
-            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900 p-6">
-              Where is my business data saved?
-              <span className="ml-4 flex-shrink-0 text-indigo-600 group-open:-rotate-180 transition-transform duration-200">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
-            </summary>
-            <div className="px-6 pb-6 text-slate-600">
-              For your privacy, we don't use databases. Your company logo and address are saved strictly in your own browser's local storage.
-            </div>
-          </details>
-
-          <details className="group bg-white rounded-lg shadow-sm border border-slate-200 open:shadow-md transition-all">
-            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900 p-6">
-              Can I print to an 80mm thermal receipt printer?
-              <span className="ml-4 flex-shrink-0 text-indigo-600 group-open:-rotate-180 transition-transform duration-200">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
-            </summary>
-            <div className="px-6 pb-6 text-slate-600">
-              Yes. You can toggle between standard A4 document sizes and 80mm POS receipt formats perfectly formatted for thermal printers.
-            </div>
-          </details>
-
-          <details className="group bg-white rounded-lg shadow-sm border border-slate-200 open:shadow-md transition-all">
-            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900 p-6">
-              Does it support my local currency?
-              <span className="ml-4 flex-shrink-0 text-indigo-600 group-open:-rotate-180 transition-transform duration-200">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
-            </summary>
-            <div className="px-6 pb-6 text-slate-600">
-              Yes, the generator supports all standard global currencies and automatically formats the math to your local standard.
-            </div>
-          </details>
-        </div>
-      </div>
+      <FAQ />
     </div>
   );
 }

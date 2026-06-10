@@ -12,21 +12,21 @@ export default function Hero() {
         
         {/* Left Column (Copy) */}
         <div className="flex flex-col items-start text-left max-w-2xl">
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-sm font-semibold tracking-wide border border-emerald-100 mb-6">
-            100% Free
+          <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold tracking-wide border border-blue-300 mb-6">
+            100% Free • No Login Required
           </div>
           <h1 className="text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
-            Free Invoice & POS Receipt Generator
+            Instantly Build Free Thermal Receipts & Invoice with Live Preview
           </h1>
           <p className="mt-6 text-lg text-slate-500 leading-relaxed">
-            Generate professional receipts and invoices in seconds. Completely free, no registration required, and tailored perfectly for standard paper and 80mm thermal printers.
+            A truly free receipt maker with no watermark. Instantly generate professional A4 invoices and 80mm thermal receipts. Enjoy a real-time live preview with absolutely no login required.
           </p>
           <div className="mt-8 flex items-center">
             <Link
               href="/tool"
               className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium px-8 py-3.5 rounded-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-200"
             >
-              Generate Invoice
+              Generate Receipts Now
             </Link>
           </div>
         </div>

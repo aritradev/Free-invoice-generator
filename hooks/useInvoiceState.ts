@@ -18,9 +18,9 @@ const DEFAULT_CLIENT_INFO: ClientInfo = {
 };
 
 const DEFAULT_STATE: InvoiceState = {
-  documentType: 'invoice',
-  printFormat: 'A4',
-  documentId: 'INV-0001',
+  documentType: 'receipt',
+  printFormat: 'POS',
+  documentId: 'REC-0001',
   date: new Date().toISOString().split('T')[0],
   dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
   currency: 'USD',
