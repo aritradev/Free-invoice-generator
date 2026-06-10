@@ -1,5 +1,7 @@
+// app/tools/thermal-receipt-printer-maker/page.tsx
 import type { Metadata } from 'next';
 import ReceiptEditor from '@/components/tool/ToolInterface';
+import FaqAccordion from '@/components/FaqAccordion';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -17,6 +19,21 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ThermalReceiptMaker() {
+  const faqItems = [
+    {
+      question: "How do I print an 80mm receipt from a browser?",
+      answer: "Our generator uses optimized CSS print media queries — specifically @page { size: 80mm auto; margin: 0; } — to format output perfectly for ESC/POS thermal printers. Select the 80mm POS Receipt format in the editor, then hit Download PDF."
+    },
+    {
+      question: "Does this work with any thermal receipt printer brand?",
+      answer: "Yes. The output is plain HTML/CSS rendered by your browser's print engine, so it works with any thermal printer your OS recognizes — Epson, Star Micronics, Bixolon, SNBC, and generic 80mm USB/Bluetooth printers."
+    },
+    {
+      question: "Why does my receipt show the browser URL at the top when I print?",
+      answer: "This happens when browser margins are not zeroed out. Our tool automatically injects @page { margin: 0; } in print mode, which removes the browser header and footer. Make sure you are using the Download PDF button in our tool, not the browser's own Ctrl+P shortcut on a different page."
+    }
+  ];
+
   return (
     <main className="flex flex-col w-full bg-white">
       {/* Structured Data */}
@@ -43,16 +60,14 @@ export default function ThermalReceiptMaker() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "How do I print an 80mm receipt from a browser?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Our generator uses aggressive CSS print media queries (@page { size: 80mm auto; margin: 0; }) to format the HTML output perfectly for ESC/POS thermal printers."
-                }
+            "mainEntity": faqItems.map((item) => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
               }
-            ]
+            }))
           })
         }}
       />
@@ -107,8 +122,13 @@ export default function ThermalReceiptMaker() {
         </div>
       </section>
 
+      {/* Embedded Tool */}
+      <section className="w-full">
+        <ReceiptEditor />
+      </section>
+
       {/* SEO Content Section */}
-      <section className="w-full bg-white py-16 border-b border-slate-100 print:hidden">
+      <section className="w-full bg-white py-16 border-t border-b border-slate-100 print:hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Why Use Our Tool?</h2>
           <p className="text-lg text-slate-600 leading-relaxed">
@@ -117,9 +137,14 @@ export default function ThermalReceiptMaker() {
         </div>
       </section>
 
-      {/* Embedded Tool */}
-      <section className="w-full">
-        <ReceiptEditor />
+      {/* FAQ Section */}
+      <section className="print:hidden w-full bg-white py-16 border-b border-slate-100">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <FaqAccordion items={faqItems} />
+        </div>
       </section>
     </main>
   );

@@ -1,5 +1,7 @@
+// app/tools/offline-receipt-generator/page.tsx
 import type { Metadata } from 'next';
 import ReceiptEditor from '@/components/tool/ToolInterface';
+import FaqAccordion from '@/components/FaqAccordion';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -17,8 +19,59 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function OfflineReceiptGenerator() {
+  const faqItems = [
+    {
+      question: "Does this receipt generator work without an internet connection?",
+      answer: "Once the page has loaded in your browser, the generator works fully offline. All calculations, formatting, and PDF generation happen locally using your browser's built-in capabilities. No internet connection is needed after the initial page load."
+    },
+    {
+      question: "Where is my invoice data stored?",
+      answer: "Your data is saved exclusively in your browser's localStorage on your own device. It is never transmitted to any server or database. Clearing your browser's site data will permanently delete it — we have no copy."
+    },
+    {
+      question: "Can I use this as a permanent offline billing solution?",
+      answer: "Yes. Bookmark the page and use it whenever you need to generate a receipt or invoice. Your business info (company name, address, logo, tax ID) is remembered between sessions via localStorage, so you only need to fill it in once."
+    }
+  ];
+
   return (
     <main className="flex flex-col w-full bg-white">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Secure Offline Receipt Generator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Browser, Windows, Android, iOS",
+            "featureList": [
+              "Offline capability",
+              "Local storage persistence",
+              "No signup required"
+            ]
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqItems.map((item) => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
+              }
+            }))
+          })
+        }}
+      />
+
       {/* Premium Hero Section */}
       <section className="print:hidden w-full bg-gradient-to-b from-slate-50 to-white py-16 lg:py-20 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -53,7 +106,7 @@ export default function OfflineReceiptGenerator() {
                 </svg>
               </div>
               <h2 className="text-lg font-bold text-slate-900 mb-2">Local Storage Persistence</h2>
-              <p className="text-slate-600 text-sm leading-relaxed">Generate receipts securely via HTML and local storage. Refresh the page safely knowing your drafts are saved directly in your browser's memory.</p>
+              <p className="text-slate-600 text-sm leading-relaxed">Generate receipts securely via HTML and local storage. Refresh the page safely knowing your drafts are saved directly in your browser&apos;s memory.</p>
             </div>
 
             {/* Card 3 */}
@@ -72,8 +125,13 @@ export default function OfflineReceiptGenerator() {
         </div>
       </section>
 
+      {/* Embedded Tool */}
+      <section className="w-full">
+        <ReceiptEditor />
+      </section>
+
       {/* SEO Content Section */}
-      <section className="w-full bg-white py-16 border-b border-slate-100 print:hidden">
+      <section className="w-full bg-white py-16 border-t border-b border-slate-100 print:hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Tired of hidden fees and tracking?</h2>
           <p className="text-lg text-slate-600 leading-relaxed">
@@ -82,9 +140,14 @@ export default function OfflineReceiptGenerator() {
         </div>
       </section>
 
-      {/* Embedded Tool */}
-      <section className="w-full mt-16">
-        <ReceiptEditor />
+      {/* FAQ Section */}
+      <section className="print:hidden w-full bg-white py-16 border-b border-slate-100">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <FaqAccordion items={faqItems} />
+        </div>
       </section>
     </main>
   );

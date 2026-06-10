@@ -20,6 +20,9 @@ export default function Footer() {
 
         <div className="flex flex-col gap-2 items-center sm:items-end">
           <div className="flex gap-4">
+            <Link href="/blog" className="text-sm font-medium transition-colors duration-200 ease-in-out text-slate-500 hover:text-blue-600">
+              Blog
+            </Link>
             <Link href="/about" className="text-sm font-medium transition-colors duration-200 ease-in-out text-slate-500 hover:text-blue-600">
               About
             </Link>
@@ -27,12 +30,21 @@ export default function Footer() {
               Privacy
             </Link>
           </div>
-          <div className="flex gap-4 mt-2">
+          <div className="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-1 mt-2 max-w-md">
             <Link href="/tools/thermal-receipt-printer-maker" className="text-xs text-slate-400 hover:text-blue-500 transition-colors">
               Thermal Receipt Maker
             </Link>
             <Link href="/tools/offline-receipt-generator" className="text-xs text-slate-400 hover:text-blue-500 transition-colors">
               Offline Receipt Generator
+            </Link>
+            <Link href="/tools/free-receipt-maker-no-watermark" className="text-xs text-slate-400 hover:text-blue-500 transition-colors">
+              No Watermark Receipt Maker
+            </Link>
+            <Link href="/tools/receipt-generator-no-login" className="text-xs text-slate-400 hover:text-blue-500 transition-colors">
+              No Login Generator
+            </Link>
+            <Link href="/tools/free-invoice-generator-bangladesh" className="text-xs text-slate-400 hover:text-blue-500 transition-colors">
+              Bangladesh Invoice Tool
             </Link>
           </div>
         </div>

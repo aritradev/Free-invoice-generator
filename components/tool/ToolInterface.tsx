@@ -8,6 +8,7 @@ import { Download, Plus } from 'lucide-react';
 
 export default function ToolInterface() {
   const [isMounted, setIsMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
   const {
     state,
     updateBusinessInfo,
@@ -23,6 +24,7 @@ export default function ToolInterface() {
   } = useInvoiceState();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
   }, []);
 
@@ -49,10 +51,32 @@ export default function ToolInterface() {
 
   return (
     <div className="flex-1 flex flex-col xl:flex-row bg-slate-50 h-[calc(100vh-4rem)] print:h-auto overflow-hidden print:overflow-visible">
-      
+      {/* Mobile/Tablet Tabs Toggle (Visible only below xl breakpoint) */}
+      <div className="flex-none flex xl:hidden border-b border-slate-200 bg-white">
+        <button
+          onClick={() => setActiveTab('edit')}
+          className={`flex-1 py-3 text-center text-sm font-semibold border-b-2 transition-colors ${
+            activeTab === 'edit'
+              ? 'border-indigo-600 text-indigo-600 bg-indigo-50/20'
+              : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
+          }`}
+        >
+          Edit Document
+        </button>
+        <button
+          onClick={() => setActiveTab('preview')}
+          className={`flex-1 py-3 text-center text-sm font-semibold border-b-2 transition-colors ${
+            activeTab === 'preview'
+              ? 'border-indigo-600 text-indigo-600 bg-indigo-50/20'
+              : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
+          }`}
+        >
+          Live Preview
+        </button>
+      </div>
+
       {/* LEFT: Editor Area */}
-      <div className="w-full xl:w-1/2 flex flex-col border-r border-slate-200 print:hidden h-full">
-        
+      <div className={`w-full xl:w-1/2 flex-col border-r border-slate-200 print:hidden h-full ${activeTab === 'edit' ? 'flex' : 'hidden xl:flex'}`}>
         {/* Tool Toolbar */}
         <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm">
           <h1 className="text-xl font-bold text-slate-900">Document Editor</h1>
@@ -80,8 +104,7 @@ export default function ToolInterface() {
       </div>
 
       {/* RIGHT: Preview Area */}
-      <div className="w-full xl:w-1/2 flex flex-col bg-slate-100 print:w-full print:bg-white h-full print:h-auto">
-        
+      <div className={`w-full xl:w-1/2 flex-col bg-slate-100 print:w-full print:bg-white h-full print:h-auto ${activeTab === 'preview' ? 'flex' : 'hidden xl:flex'}`}>
         {/* Preview Toolbar */}
         <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm print:hidden">
           <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Live Preview</h2>
@@ -104,7 +127,6 @@ export default function ToolInterface() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
