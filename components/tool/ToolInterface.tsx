@@ -50,9 +50,9 @@ export default function ToolInterface() {
   };
 
   return (
-    <div className="flex-1 flex flex-col xl:flex-row bg-slate-50 h-[calc(100dvh-4rem)] print:h-auto overflow-hidden print:overflow-visible">
+    <div className="flex-1 flex flex-col xl:flex-row bg-slate-50 min-h-[calc(100dvh-4rem)] xl:h-[calc(100dvh-4rem)] print:h-auto xl:overflow-hidden print:overflow-visible">
       {/* Mobile/Tablet Tabs Toggle (Visible only below xl breakpoint) */}
-      <div className="flex-none flex xl:hidden border-b border-slate-200 bg-white print:hidden">
+      <div className="flex-none flex xl:hidden border-b border-slate-200 bg-white print:hidden sticky top-16 z-40">
         <button
           onClick={() => setActiveTab('edit')}
           className={`flex-1 py-3 text-center text-sm font-semibold border-b-2 transition-colors ${
@@ -78,7 +78,7 @@ export default function ToolInterface() {
       {/* LEFT: Editor Area */}
       <div className={`w-full xl:w-1/2 flex-col border-r border-slate-200 print:hidden h-full ${activeTab === 'edit' ? 'flex' : 'hidden xl:flex'}`}>
         {/* Tool Toolbar */}
-        <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm">
+        <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm sticky top-[110px] xl:top-0 z-30">
           <h1 className="text-xl font-bold text-slate-900">Document Editor</h1>
           <div className="flex items-center gap-3">
             <button
@@ -114,7 +114,7 @@ export default function ToolInterface() {
       {/* RIGHT: Preview Area */}
       <div className={`w-full xl:w-1/2 flex-col bg-slate-100 print:w-full print:bg-white h-full print:h-auto print:flex ${activeTab === 'preview' ? 'flex' : 'hidden xl:flex'}`}>
         {/* Preview Toolbar */}
-        <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm print:hidden">
+        <div className="flex-none flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm print:hidden sticky top-[110px] xl:top-0 z-30">
           <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Live Preview</h2>
           <button
             onClick={handlePrint}
