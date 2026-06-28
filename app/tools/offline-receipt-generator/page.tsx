@@ -8,12 +8,18 @@ export async function generateMetadata(): Promise<Metadata> {
     title: 'Offline Billing Software Without Registration | FreeReceipt',
     description: 'The ultimate no cloud receipt maker. Generate receipts securely via HTML and local storage. No sign-ups, no databases, 100% privacy-first.',
     alternates: {
-      canonical: 'https://freereceipt.net/tools/offline-receipt-generator',
+      canonical: 'https://freereceipt.dev/tools/offline-receipt-generator',
     },
     openGraph: {
       title: 'Secure Offline Receipt Generator',
       description: 'Create professional invoices directly in your browser using local storage.',
       type: 'website',
+      url: 'https://freereceipt.dev/tools/offline-receipt-generator',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Offline Billing Software Without Registration | FreeReceipt',
+      description: 'Generate receipts in your browser with zero cloud uploads. No login, no tracking, and no hidden fees.',
     }
   };
 }

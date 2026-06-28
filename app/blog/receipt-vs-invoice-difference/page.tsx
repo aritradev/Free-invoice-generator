@@ -12,18 +12,52 @@ export const metadata: Metadata = {
     description: 'Learn the legal and accounting differences between receipts and invoices, when to use each, and explore comparative examples.',
     type: 'article',
     url: 'https://freereceipt.dev/blog/receipt-vs-invoice-difference',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Receipt vs Invoice: What\'s the Difference?',
+    description: 'Clear examples and practical rules for when to issue an invoice vs a receipt.',
   }
 };
 
 export default function ReceiptVsInvoice() {
+  const faqItems = [
+    {
+      question: 'Is a receipt the same as an invoice?',
+      answer:
+        'No. An invoice requests payment before money is received, while a receipt confirms payment after the transaction is completed. They serve different accounting purposes and should not be used interchangeably. Businesses usually issue an invoice first, then issue a receipt once the invoice has been paid in full.',
+    },
+    {
+      question: 'Do freelancers need to send both invoice and receipt?',
+      answer:
+        'Yes, in most professional workflows freelancers should keep both. The invoice tracks money owed and payment terms, while the receipt documents that payment was collected. Keeping matched invoice and receipt records improves bookkeeping accuracy, supports tax reporting, and reduces disputes with clients over payment status or timing.',
+    },
+    {
+      question: 'When should I issue a receipt to a client?',
+      answer:
+        'Issue a receipt immediately after payment clears, whether the client paid by card, transfer, cash, or online processor. Fast receipt delivery provides proof of payment and builds trust. It also helps both sides close the transaction in their accounting systems without waiting for month-end reconciliation.',
+    },
+    {
+      question: 'Can an invoice be used as proof of payment?',
+      answer:
+        'Usually no. An unpaid invoice only shows that payment was requested, not completed. To prove payment, a receipt or payment confirmation is required. Some accounting systems can mark an invoice as paid, but businesses still commonly generate a dedicated receipt for tax records, reimbursements, and client documentation.',
+    },
+  ];
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Receipt vs Invoice: What's the Difference? (With Examples)",
     "datePublished": "2025-06-04",
+    "dateModified": "2026-06-28",
+    "mainEntityOfPage": "https://freereceipt.dev/blog/receipt-vs-invoice-difference",
     "author": {
+      "@type": "Person",
+      "name": "FreeReceipt Editorial Team"
+    },
+    "reviewedBy": {
       "@type": "Organization",
-      "name": "FreeReceipt"
+      "name": "FreeReceipt Billing Workflow Team"
     },
     "publisher": {
       "@type": "Organization",
@@ -32,12 +66,58 @@ export default function ReceiptVsInvoice() {
     }
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://freereceipt.dev"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://freereceipt.dev/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Receipt vs Invoice",
+        "item": "https://freereceipt.dev/blog/receipt-vs-invoice-difference"
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+
   return (
     <main className="min-h-screen bg-white">
       {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
@@ -53,11 +133,14 @@ export default function ReceiptVsInvoice() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Receipt vs Invoice: What&apos;s the Difference? (With Examples)
           </h1>
+          <p className="mt-4 text-sm text-slate-500">
+            Written by <span className="font-semibold text-slate-700">FreeReceipt Editorial Team</span> and reviewed by <span className="font-semibold text-slate-700">FreeReceipt Billing Workflow Team</span>.
+          </p>
         </header>
 
         {/* Intro */}
         <p className="text-slate-600 leading-relaxed mb-6 text-base sm:text-lg">
-          For many small business owners, freelancers, and newly minted entrepreneurs, managing company paperwork can be overwhelming. Some terminology can feel overlapping and confusing. In particular, the terms &quot;receipt&quot; and &quot;invoice&quot; are frequently used interchangeably in everyday conversation. However, in the worlds of legal compliance, taxation, and business accounting, they represent two completely distinct documents. Mixing them up can lead to tax reporting discrepancies, client disputes, and accounting headaches.
+          An invoice asks a client to pay, while a receipt confirms that payment was already made. The difference is timing and purpose: invoices track money due, receipts track money received. Using both documents correctly improves accounting accuracy, supports tax compliance, and reduces payment disputes for freelancers and small businesses.
         </p>
 
         {/* Section 1 */}
@@ -176,6 +259,25 @@ export default function ReceiptVsInvoice() {
         <p className="text-slate-600 leading-relaxed mb-6 text-base">
           With a simple toggle at the top of our editor panel, you can switch layouts instantly. Creating professional, unbranded invoices shouldn&apos;t cost you a monthly subscription. By using a secure, browser-based billing tool, you can protect your client&apos;s data privacy and get paid on time. Ready to draft your first invoice? Start generating with our <Link href="/tool" className="text-indigo-600 font-medium hover:underline">Free Invoice Generator</Link> now.
         </p>
+
+        <section className="mt-12 border-t border-slate-100 pt-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+          {faqItems.map((item) => (
+            <div key={item.question} className="mb-6">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">{item.question}</h3>
+              <p className="text-slate-600 leading-relaxed text-base">{item.answer}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mt-12 border-t border-slate-100 pt-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">Related Guides</h2>
+          <ul className="list-disc pl-6 space-y-2 text-slate-600">
+            <li><Link href="/blog/free-invoice-templates-freelancers-2025" className="text-indigo-600 hover:underline font-medium">Best free invoice templates for freelancers</Link></li>
+            <li><Link href="/blog/how-to-print-80mm-thermal-receipt-from-browser" className="text-indigo-600 hover:underline font-medium">How to print 80mm thermal receipts from a browser</Link></li>
+            <li><Link href="/tools/receipt-generator-no-login" className="text-indigo-600 hover:underline font-medium">Receipt generator with no login</Link></li>
+          </ul>
+        </section>
       </article>
     </main>
   );

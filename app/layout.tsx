@@ -56,6 +56,16 @@ const websiteSchema = {
   }
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "FreeReceipt",
+  "url": "https://freereceipt.dev",
+  "logo": "https://freereceipt.dev/og-image.png",
+  "description": "Privacy-first invoice and receipt generator that runs fully in your browser.",
+  "sameAs": []
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -71,6 +81,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <Navbar />
         <main className="flex-1 flex flex-col">

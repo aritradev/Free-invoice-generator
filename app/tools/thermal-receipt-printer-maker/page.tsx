@@ -8,12 +8,18 @@ export async function generateMetadata(): Promise<Metadata> {
     title: 'Free 80mm POS Receipt Maker & Templates | FreeReceipt',
     description: 'Free ESC/POS receipt generator optimized for thermal printers. Create pixel-perfect 80mm POS receipts instantly in your browser.',
     alternates: {
-      canonical: 'https://freereceipt.net/tools/thermal-receipt-printer-maker',
+      canonical: 'https://freereceipt.dev/tools/thermal-receipt-printer-maker',
     },
     openGraph: {
       title: 'Free 80mm Thermal Printer Receipt Maker',
       description: 'Generate ESC/POS compatible 80mm receipts without format nightmares.',
       type: 'website',
+      url: 'https://freereceipt.dev/tools/thermal-receipt-printer-maker',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Free 80mm POS Receipt Maker & Templates | FreeReceipt',
+      description: 'Create 80mm thermal POS receipts in your browser with clean print output and no signup.',
     }
   };
 }

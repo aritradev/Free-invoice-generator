@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     description: 'Expert guides on invoicing, browser thermal printing, and business billing workflows.',
     type: 'website',
     url: 'https://freereceipt.dev/blog',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Invoice & Receipt Tips — FreeReceipt Blog',
+    description: 'Guides for invoice templates, thermal receipt printing, and billing workflows.',
   }
 };
 
@@ -47,7 +52,7 @@ export default function BlogIndex() {
         {/* Header Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-            FreeInvoice & Receipt Tips
+            Free Invoice & Receipt Tips
           </h1>
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
             Practical guides and tutorials to master invoicing, receipt printing, and secure billing workflows for small businesses.

@@ -12,18 +12,52 @@ export const metadata: Metadata = {
     description: 'Find the best unbranded A4 and 80mm POS invoice templates for your freelance business. No subscription or accounts required.',
     type: 'article',
     url: 'https://freereceipt.dev/blog/free-invoice-templates-freelancers-2025',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Best Free Invoice Templates for Freelancers in 2025',
+    description: 'Template types, must-have fields, and common invoicing mistakes freelancers should avoid.',
   }
 };
 
 export default function FreeInvoiceTemplates() {
+  const faqItems = [
+    {
+      question: 'What is the best free invoice template for freelancers?',
+      answer:
+        'The best template is one that includes client details, invoice number, issue date, due date, itemized services, taxes, and payment instructions. For most service freelancers, a clean A4 PDF template works best. If you bill in person, an 80mm thermal format can be faster and more practical at checkout.',
+    },
+    {
+      question: 'Do free invoice templates need a tax ID or VAT number?',
+      answer:
+        'If your local regulations require tax identification, include it on every invoice. Missing tax details can delay client approvals or create compliance issues during audits. Even when optional, adding tax and business identifiers improves trust and helps enterprise clients process invoices faster through their finance systems.',
+    },
+    {
+      question: 'Can I use a free invoice template without creating an account?',
+      answer:
+        'Yes. Many modern invoice generators let freelancers create and download professional invoices without signup. Account-free tools are useful when you want speed and privacy, especially for occasional invoicing. Just confirm that the output is unbranded and that your invoice data is not uploaded to external servers.',
+    },
+    {
+      question: 'What format should freelancers use: A4 invoice or 80mm receipt?',
+      answer:
+        'Use A4 invoices for remote projects and formal client billing workflows, since they provide more space for terms and details. Use 80mm receipts for in-person transactions where quick printing matters. Many freelancers use both formats depending on client type, payment channel, and the context of each sale.',
+    },
+  ];
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Best Free Invoice Templates for Freelancers in 2025",
     "datePublished": "2025-06-08",
+    "dateModified": "2026-06-28",
+    "mainEntityOfPage": "https://freereceipt.dev/blog/free-invoice-templates-freelancers-2025",
     "author": {
+      "@type": "Person",
+      "name": "FreeReceipt Editorial Team"
+    },
+    "reviewedBy": {
       "@type": "Organization",
-      "name": "FreeReceipt"
+      "name": "FreeReceipt Billing Workflow Team"
     },
     "publisher": {
       "@type": "Organization",
@@ -32,12 +66,58 @@ export default function FreeInvoiceTemplates() {
     }
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://freereceipt.dev"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://freereceipt.dev/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Best Free Invoice Templates for Freelancers in 2025",
+        "item": "https://freereceipt.dev/blog/free-invoice-templates-freelancers-2025"
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+
   return (
     <main className="min-h-screen bg-white">
       {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
@@ -53,11 +133,14 @@ export default function FreeInvoiceTemplates() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Best Free Invoice Templates for Freelancers in 2025
           </h1>
+          <p className="mt-4 text-sm text-slate-500">
+            Written by <span className="font-semibold text-slate-700">FreeReceipt Editorial Team</span> and reviewed by <span className="font-semibold text-slate-700">FreeReceipt Billing Workflow Team</span>.
+          </p>
         </header>
 
         {/* Intro */}
         <p className="text-slate-600 leading-relaxed mb-6 text-base sm:text-lg">
-          As a freelancer, your primary focus should be delivering quality work to your clients. Unfortunately, getting paid often requires fighting with invoicing tools that either charge expensive monthly subscriptions, put watermarks on free plans, or require you to create cloud accounts that compromise your privacy. In 2025, you do not need to hand over your email or sign up for recurring SaaS tools to get a professional PDF. Finding a clean, unbranded freelancer invoice generator free utility can streamline your business workflow and help you get paid faster.
+          The best free invoice templates for freelancers include clear line items, due dates, tax fields, and payment instructions without forcing subscriptions or watermarks. In 2025, you can generate professional A4 invoices and 80mm receipts without signup by using browser-based tools that keep your billing workflow fast, private, and client-ready.
         </p>
 
         {/* Section 1 */}
@@ -142,6 +225,25 @@ export default function FreeInvoiceTemplates() {
         <p className="text-slate-600 leading-relaxed mb-6 text-base">
           Creating professional, unbranded invoices shouldn&apos;t cost you a monthly subscription. By using a secure, browser-based billing tool, you can protect your client&apos;s data privacy and get paid on time. Ready to draft your first invoice? Start generating with our <Link href="/tool" className="text-indigo-600 font-medium hover:underline">Free Invoice Generator</Link> now.
         </p>
+
+        <section className="mt-12 border-t border-slate-100 pt-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+          {faqItems.map((item) => (
+            <div key={item.question} className="mb-6">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">{item.question}</h3>
+              <p className="text-slate-600 leading-relaxed text-base">{item.answer}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mt-12 border-t border-slate-100 pt-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">Related Guides</h2>
+          <ul className="list-disc pl-6 space-y-2 text-slate-600">
+            <li><Link href="/blog/receipt-vs-invoice-difference" className="text-indigo-600 hover:underline font-medium">Receipt vs invoice: when to use each document</Link></li>
+            <li><Link href="/blog/how-to-print-80mm-thermal-receipt-from-browser" className="text-indigo-600 hover:underline font-medium">Print clean 80mm thermal receipts from your browser</Link></li>
+            <li><Link href="/tools/free-invoice-generator-bangladesh" className="text-indigo-600 hover:underline font-medium">Free invoice generator for Bangladesh (BDT)</Link></li>
+          </ul>
+        </section>
       </article>
     </main>
   );

@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     description: 'Generate A4 invoices and 80mm thermal receipts in real time. No login, no watermarks, completely private.',
     type: 'website',
     url: 'https://freereceipt.dev/tool',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Invoice & POS Receipt Generator Tool',
+    description: 'Create A4 invoices and 80mm receipts with live preview. No login and no watermark.',
   }
 };
 
